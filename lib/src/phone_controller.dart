@@ -43,8 +43,7 @@ class PhoneController extends ChangeNotifier {
     bool isDeleting = text.length < oldFormattedText.length;
 
     // if starts with + then we parse the whole number
-    final startsWithPlus =
-        text.startsWith(RegExp('[${AllowedCharacters.plus}]'));
+    final startsWithPlus = text.startsWith(RegExp('[${AllowedCharacters.plus}]'));
 
     if (startsWithPlus) {
       final phoneNumber = _tryParseWithPlus(text);
@@ -55,8 +54,7 @@ class PhoneController extends ChangeNotifier {
         newFormattedText = _value.formatNsn();
       }
     } else if (isDeleting &&
-        text.startsWith(
-            RegExp('^\\([${AllowedCharacters.digits}]+(?!.*\\))'))) {
+        text.startsWith(RegExp('^\\([${AllowedCharacters.digits}]+(?!.*\\))'))) {
       // Handle case where the phone number contains an area code such as (416), and user has begun to delete it, i.e. the text input is now (416.
       // We need to skip parsing/formatting here, else the parentheses will be added back
     } else {
@@ -75,8 +73,7 @@ class PhoneController extends ChangeNotifier {
     if (newFormattedText != _formattedNationalNumberController.text) {
       _formattedNationalNumberController.value = TextEditingValue(
         text: newFormattedText,
-        selection: _computeSelection(
-            _formattedNationalNumberController.text, newFormattedText),
+        selection: _computeSelection(_formattedNationalNumberController.text, newFormattedText),
       );
     }
   }
@@ -86,8 +83,7 @@ class PhoneController extends ChangeNotifier {
   /// We don't want to do it in the middle because the user might have
   /// used arrow keys to move inside the text.
   TextSelection _computeSelection(String originalText, String newText) {
-    final currentSelectionOffset =
-        _formattedNationalNumberController.selection.extentOffset;
+    final currentSelectionOffset = _formattedNationalNumberController.selection.extentOffset;
     final isCursorAtEnd = currentSelectionOffset == originalText.length;
     var offset = currentSelectionOffset;
 

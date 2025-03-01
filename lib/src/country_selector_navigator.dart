@@ -266,8 +266,11 @@ class PageNavigator extends CountrySelectorNavigator {
           noResultMessage: noResultMessage,
           searchAutofocus: searchAutofocus,
           showDialCode: showDialCode,
-          titleStyle: titleStyle,
           subtitleStyle: subtitleStyle,
+          titleStyle: titleStyle,
+          searchBoxDecoration: searchBoxDecoration,
+          searchBoxTextStyle: searchBoxTextStyle,
+          searchBoxIconColor: searchBoxIconColor,
         ),
       ),
     );
