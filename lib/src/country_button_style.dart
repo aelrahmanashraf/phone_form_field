@@ -7,7 +7,7 @@ class CountryButtonStyle {
   /// padding inside country button,
   /// this can be used to align the country button with the phone number
   /// and is mostly useful when using [isCountryButtonPersistent] as true.
-  final EdgeInsets? padding;
+  final EdgeInsetsDirectional? padding;
 
   /// The radius of the flag in the country button
   final double flagSize;
@@ -37,7 +37,7 @@ class CountryButtonStyle {
 
   CountryButtonStyle copyWith({
     TextStyle? textStyle,
-    EdgeInsets? padding,
+    EdgeInsetsDirectional? padding,
     double? flagSize,
     bool? showFlag,
     bool? showDialCode,

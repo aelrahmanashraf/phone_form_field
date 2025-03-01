@@ -12,10 +12,11 @@ class PhoneFormFieldState extends FormFieldState<PhoneNumber> {
     super.initState();
 
     controller = widget.controller ??
-        PhoneController(
-          initialValue: widget.initialValue ??
-              const PhoneNumber(isoCode: IsoCode.US, nsn: ''),
-        );
+    PhoneController(
+      initialValue: widget.initialValue ?? const PhoneNumber(
+        isoCode: IsoCode.US, nsn: '',
+      ),
+    );
     controller.addListener(_onControllerValueChanged);
     focusNode = widget.focusNode ?? FocusNode();
   }
@@ -76,8 +77,7 @@ class PhoneFormFieldState extends FormFieldState<PhoneNumber> {
 
   Widget builder() {
     final textAlignment = _computeTextAlign();
-    final countryButtonForEachSlot =
-        _buildCountryButtonForEachSlot(textAlignment);
+    final countryButtonForEachSlot = _buildCountryButtonForEachSlot(textAlignment);
     return PhoneFieldSemantics(
       hasFocus: focusNode.hasFocus,
       enabled: widget.enabled,
@@ -93,11 +93,9 @@ class PhoneFormFieldState extends FormFieldState<PhoneNumber> {
         controller: controller._formattedNationalNumberController,
         focusNode: focusNode,
         enabled: widget.enabled,
-        inputFormatters: widget.inputFormatters ??
-            [
-              FilteringTextInputFormatter.allow(RegExp(
-                  '[${AllowedCharacters.plus}${AllowedCharacters.digits}${AllowedCharacters.punctuation}]')),
-            ],
+        inputFormatters: widget.inputFormatters ?? [
+          FilteringTextInputFormatter.allow(RegExp('[${AllowedCharacters.plus}${AllowedCharacters.digits}${AllowedCharacters.punctuation}]')),
+        ],
         onChanged: _onTextfieldChanged,
         textAlign: _computeTextAlign(),
         autofillHints: widget.autofillHints,
@@ -139,9 +137,7 @@ class PhoneFormFieldState extends FormFieldState<PhoneNumber> {
 
   TextAlign _computeTextAlign() {
     final directionality = Directionality.of(context);
-    return directionality == TextDirection.ltr
-        ? TextAlign.start
-        : TextAlign.end;
+    return directionality == TextDirection.ltr ? TextAlign.start : TextAlign.end;
   }
 
   /// returns where the country button is placed in the input
@@ -196,32 +192,25 @@ class PhoneFormFieldState extends FormFieldState<PhoneNumber> {
   /// - is border underline or outline
   /// - is country button shown as a prefix or prefixIcon (isCountryChipPersistent)
   /// - text direction
-  EdgeInsets _computeCountryButtonPadding(BuildContext context) {
+  EdgeInsetsDirectional _computeCountryButtonPadding(BuildContext context) {
     final userDefinedPadding = widget.countryButtonStyle.padding;
     final isUnderline = widget.decoration.border is UnderlineInputBorder;
-    final hasLabel =
-        widget.decoration.label != null || widget.decoration.labelText != null;
-    final isLtr = Directionality.of(context) == TextDirection.ltr;
-
-    EdgeInsets padding = isLtr
-        ? const EdgeInsets.fromLTRB(12, 16, 4, 16)
-        : const EdgeInsets.fromLTRB(4, 16, 12, 16);
+    final hasLabel = widget.decoration.label != null || widget.decoration.labelText != null;
+    
     if (userDefinedPadding != null) {
       return userDefinedPadding;
     }
+
+    EdgeInsetsDirectional padding = const EdgeInsetsDirectional.fromSTEB(12, 16, 4, 16);
+
     if (!widget.isCountryButtonPersistent) {
-      padding = isLtr
-          ? const EdgeInsets.only(right: 4, left: 12)
-          : const EdgeInsets.only(left: 4, right: 12);
+      padding = const EdgeInsetsDirectional.only(start: 12, end: 4);
     } else if (isUnderline && hasLabel) {
-      padding = isLtr
-          ? const EdgeInsets.fromLTRB(12, 25, 4, 7)
-          : const EdgeInsets.fromLTRB(4, 25, 12, 7);
+      padding = const EdgeInsetsDirectional.fromSTEB(12, 25, 4, 7);
     } else if (isUnderline && !hasLabel) {
-      padding = isLtr
-          ? const EdgeInsets.fromLTRB(12, 2, 4, 0)
-          : const EdgeInsets.fromLTRB(4, 2, 12, 0);
+      padding = const EdgeInsetsDirectional.fromSTEB(12, 2, 4, 0);
     }
+    
     return padding;
   }
 }

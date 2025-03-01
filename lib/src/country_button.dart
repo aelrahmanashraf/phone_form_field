@@ -9,7 +9,7 @@ class CountryButton extends StatelessWidget {
   final Function()? onTap;
   final IsoCode isoCode;
   final TextStyle? textStyle;
-  final EdgeInsets padding;
+  final EdgeInsetsDirectional padding;
   final double flagSize;
   final bool showFlag;
   final bool showDialCode;
@@ -22,7 +22,7 @@ class CountryButton extends StatelessWidget {
     required this.isoCode,
     required this.onTap,
     this.textStyle,
-    this.padding = const EdgeInsets.fromLTRB(12, 16, 4, 16),
+    this.padding = const EdgeInsetsDirectional.fromSTEB(12, 16, 4, 16),
     this.flagSize = 20,
     this.showFlag = true,
     this.showDialCode = true,
@@ -33,11 +33,8 @@ class CountryButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final textStyle = this.textStyle ??
-        Theme.of(context).textTheme.bodyMedium?.copyWith(fontSize: 16) ??
-        const TextStyle();
-    final countryLocalization = CountrySelectorLocalization.of(context) ??
-        CountrySelectorLocalizationEn();
+    final textStyle = this.textStyle ?? Theme.of(context).textTheme.bodyMedium?.copyWith(fontSize: 16) ?? const TextStyle();
+    final countryLocalization = CountrySelectorLocalization.of(context) ?? CountrySelectorLocalizationEn();
     final countryDialCode = '+ ${countryLocalization.countryDialCode(isoCode)}';
 
     return InkWell(
